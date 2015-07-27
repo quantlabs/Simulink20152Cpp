@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="./js/coder_app.js"></script>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="./rtwreport_utils.js"></script>
+<script type="text/javascript" src="./rtwannotate.js"></script>
+<link rel="stylesheet" type="text/css" href="./css/coder_app.css"/>
+</head>
+<body onload="srcFileOnload();">
+<pre id="code">
+<table class="code" id="codeTbl">
+<tr name="1" id="1">
+<td>1</td><td><span class="ct">//</span></td></tr>
+<tr name="2" id="2">
+<td>2</td><td><span class="ct">// File: sf_launchabort.h</span></td></tr>
+<tr name="3" id="3">
+<td>3</td><td><span class="ct">//</span></td></tr>
+<tr name="4" id="4">
+<td>4</td><td><span class="ct">// Code generated for Simulink model 'sf_launchabort'.</span></td></tr>
+<tr name="5" id="5">
+<td>5</td><td><span class="ct">//</span></td></tr>
+<tr name="6" id="6">
+<td>6</td><td><span class="ct">// Model version                  : 1.211</span></td></tr>
+<tr name="7" id="7">
+<td>7</td><td><span class="ct">// Simulink Coder version         : 8.8 (R2015a) 09-Feb-2015</span></td></tr>
+<tr name="8" id="8">
+<td>8</td><td><span class="ct">// C/C++ source code generated on : Sun Jul 26 22:33:13 2015</span></td></tr>
+<tr name="9" id="9">
+<td>9</td><td><span class="ct">//</span></td></tr>
+<tr name="10" id="10">
+<td>10</td><td><span class="ct">// Target selection: ert.tlc</span></td></tr>
+<tr name="11" id="11">
+<td>11</td><td><span class="ct">// Embedded hardware selection: 32-bit Generic</span></td></tr>
+<tr name="12" id="12">
+<td>12</td><td><span class="ct">// Code generation objectives: Unspecified</span></td></tr>
+<tr name="13" id="13">
+<td>13</td><td><span class="ct">// Validation result: Not run</span></td></tr>
+<tr name="14" id="14">
+<td>14</td><td><span class="ct">//</span></td></tr>
+<tr name="15" id="15">
+<td>15</td><td><span class="pp">#ifndef</span> <a id="15c9" class="tk">RTW_HEADER_sf_launchabort_h_</a></td></tr>
+<tr name="16" id="16">
+<td>16</td><td><span class="pp">#define</span> <a id="16c9" class="tk">RTW_HEADER_sf_launchabort_h_</a></td></tr>
+<tr name="17" id="17">
+<td>17</td><td><span class="pp">#include &lt;math.h&gt;</span></td></tr>
+<tr name="18" id="18">
+<td>18</td><td><span class="pp">#include &lt;string.h&gt;</span></td></tr>
+<tr name="19" id="19">
+<td>19</td><td><span class="pp">#ifndef</span> <a id="19c9" class="tk">sf_launchabort_COMMON_INCLUDES_</a></td></tr>
+<tr name="20" id="20">
+<td>20</td><td><span class="pp"># define</span> <a id="20c10" class="tk">sf_launchabort_COMMON_INCLUDES_</a></td></tr>
+<tr name="21" id="21">
+<td>21</td><td><span class="pp">#include "rtwtypes.h"</span></td></tr>
+<tr name="22" id="22">
+<td>22</td><td><span class="pp">#include "rtw_continuous.h"</span></td></tr>
+<tr name="23" id="23">
+<td>23</td><td><span class="pp">#include "rtw_solver.h"</span></td></tr>
+<tr name="24" id="24">
+<td>24</td><td><span class="pp">#endif</span>                                 <span class="ct">// sf_launchabort_COMMON_INCLUDES_</span></td></tr>
+<tr name="25" id="25">
+<td>25</td><td></td></tr>
+<tr name="26" id="26">
+<td>26</td><td><span class="pp">#include "sf_launchabort_types.h"</span></td></tr>
+<tr name="27" id="27">
+<td>27</td><td></td></tr>
+<tr name="28" id="28">
+<td>28</td><td><span class="ct">// Child system includes</span></td></tr>
+<tr name="29" id="29">
+<td>29</td><td><span class="pp">#include "launchAbortController.h"</span></td></tr>
+<tr name="30" id="30">
+<td>30</td><td></td></tr>
+<tr name="31" id="31">
+<td>31</td><td><span class="ct">// Macros for accessing real-time model data structure</span></td></tr>
+<tr name="32" id="32">
+<td>32</td><td><span class="pp">#ifndef</span> <a id="32c9" class="tk">rtmGetErrorStatus</a></td></tr>
+<tr name="33" id="33">
+<td>33</td><td><span class="pp"># define</span> <a id="33c10" class="tk">rtmGetErrorStatus</a>(<a id="33c28" class="tk">rtm</a>)        ((<a id="33c42" class="tk">rtm</a>)-&gt;<a id="33c48" class="tk">errorStatus</a>)</td></tr>
+<tr name="34" id="34">
+<td>34</td><td><span class="pp">#endif</span></td></tr>
+<tr name="35" id="35">
+<td>35</td><td></td></tr>
+<tr name="36" id="36">
+<td>36</td><td><span class="pp">#ifndef</span> <a id="36c9" class="tk">rtmSetErrorStatus</a></td></tr>
+<tr name="37" id="37">
+<td>37</td><td><span class="pp"># define</span> <a id="37c10" class="tk">rtmSetErrorStatus</a>(<a id="37c28" class="tk">rtm</a>, <a id="37c33" class="tk">val</a>)   ((<a id="37c42" class="tk">rtm</a>)-&gt;<a id="37c48" class="tk">errorStatus</a> = (<a id="37c63" class="tk">val</a>))</td></tr>
+<tr name="38" id="38">
+<td>38</td><td><span class="pp">#endif</span></td></tr>
+<tr name="39" id="39">
+<td>39</td><td></td></tr>
+<tr name="40" id="40">
+<td>40</td><td><span class="pp">#ifndef</span> <a id="40c9" class="tk">rtmGetT</a></td></tr>
+<tr name="41" id="41">
+<td>41</td><td><span class="pp"># define</span> <a id="41c10" class="tk">rtmGetT</a>(<a id="41c18" class="tk">rtm</a>)                  (<a id="41c41" class="tk">rtmGetTPtr</a>((<a id="41c53" class="tk">rtm</a>))[0])</td></tr>
+<tr name="42" id="42">
+<td>42</td><td><span class="pp">#endif</span></td></tr>
+<tr name="43" id="43">
+<td>43</td><td></td></tr>
+<tr name="44" id="44">
+<td>44</td><td><span class="ct">// Block signals for system '<a class="ct blk" blk_line="44">&lt;S5&gt;/FuelDump</a>'</span></td></tr>
+<tr name="45" id="45">
+<td>45</td><td><span class="kw">typedef</span> <span class="kw">struct</span> <span class="br">{</span></td></tr>
+<tr name="46" id="46">
+<td>46</td><td>  <a id="46c3" class="tk">real_T</a> <a id="46c10" class="tk">UnitDelay</a>;                    <span class="ct">// '<a class="ct blk" blk_line="46">&lt;S8&gt;/Unit Delay</a>'</span></td></tr>
+<tr name="47" id="47">
+<td>47</td><td><span class="br">}</span> <a id="47c3" class="tk">rtB_FuelDump</a>;</td></tr>
+<tr name="48" id="48">
+<td>48</td><td></td></tr>
+<tr name="49" id="49">
+<td>49</td><td><span class="ct">// Block states (auto storage) for system '<a class="ct blk" blk_line="49">&lt;S5&gt;/FuelDump</a>'</span></td></tr>
+<tr name="50" id="50">
+<td>50</td><td><span class="kw">typedef</span> <span class="kw">struct</span> <span class="br">{</span></td></tr>
+<tr name="51" id="51">
+<td>51</td><td>  <a id="51c3" class="tk">real_T</a> <a id="51c10" class="tk">UnitDelay_DSTATE</a>;             <span class="ct">// '<a class="ct blk" blk_line="51">&lt;S8&gt;/Unit Delay</a>'</span></td></tr>
+<tr name="52" id="52">
+<td>52</td><td><span class="br">}</span> <a id="52c3" class="tk">rtDW_FuelDump</a>;</td></tr>
+<tr name="53" id="53">
+<td>53</td><td></td></tr>
+<tr name="54" id="54">
+<td>54</td><td><span class="ct">// Block signals for system '<a class="ct blk" blk_line="54">&lt;S5&gt;/TankRelease</a>'</span></td></tr>
+<tr name="55" id="55">
+<td>55</td><td><span class="kw">typedef</span> <span class="kw">struct</span> <span class="br">{</span></td></tr>
+<tr name="56" id="56">
+<td>56</td><td>  <a id="56c3" class="tk">real_T</a> <a id="56c10" class="tk">UnitDelay</a>;                    <span class="ct">// '<a class="ct blk" blk_line="56">&lt;S10&gt;/Unit Delay</a>'</span></td></tr>
+<tr name="57" id="57">
+<td>57</td><td><span class="br">}</span> <a id="57c3" class="tk">rtB_TankRelease</a>;</td></tr>
+<tr name="58" id="58">
+<td>58</td><td></td></tr>
+<tr name="59" id="59">
+<td>59</td><td><span class="ct">// Block states (auto storage) for system '<a class="ct blk" blk_line="59">&lt;S5&gt;/TankRelease</a>'</span></td></tr>
+<tr name="60" id="60">
+<td>60</td><td><span class="kw">typedef</span> <span class="kw">struct</span> <span class="br">{</span></td></tr>
+<tr name="61" id="61">
+<td>61</td><td>  <a id="61c3" class="tk">real_T</a> <a id="61c10" class="tk">UnitDelay_DSTATE</a>;             <span class="ct">// '<a class="ct blk" blk_line="61">&lt;S10&gt;/Unit Delay</a>'</span></td></tr>
+<tr name="62" id="62">
+<td>62</td><td><span class="br">}</span> <a id="62c3" class="tk">rtDW_TankRelease</a>;</td></tr>
+<tr name="63" id="63">
+<td>63</td><td></td></tr>
+<tr name="64" id="64">
+<td>64</td><td><span class="ct">// Block signals (auto storage)</span></td></tr>
+<tr name="65" id="65">
+<td>65</td><td><span class="kw">typedef</span> <span class="kw">struct</span> <span class="br">{</span></td></tr>
+<tr name="66" id="66">
+<td>66</td><td>  <a id="66c3" class="tk">real_T</a> <a id="66c10" class="tk">FromWs</a>[6];                    <span class="ct">// '<a class="ct blk" blk_line="66">&lt;S3&gt;/FromWs</a>'</span></td></tr>
+<tr name="67" id="67">
+<td>67</td><td>  <a id="67c3" class="tk">real_T</a> <a id="67c10" class="tk">TmpSignalConversionAtVRSinkInpo</a>[4];<span class="ct">// '<a class="ct blk" blk_line="67">&lt;Root&gt;/VR Inputs</a>'</span></td></tr>
+<tr name="68" id="68">
+<td>68</td><td>  <a id="68c3" class="tk">real_T</a> <a id="68c10" class="tk">TmpSignalConversionAtVRSinkIn_p</a>[4];<span class="ct">// '<a class="ct blk" blk_line="68">&lt;Root&gt;/VR Inputs</a>'</span></td></tr>
+<tr name="69" id="69">
+<td>69</td><td>  <a id="69c3" class="tk">real_T</a> <a id="69c10" class="tk">Gain</a>[3];                      <span class="ct">// '<a class="ct blk" blk_line="69">&lt;S2&gt;/Gain</a>'</span></td></tr>
+<tr name="70" id="70">
+<td>70</td><td>  <a id="70c3" class="tk">real_T</a> <a id="70c10" class="tk">Gain2</a>[3];                     <span class="ct">// '<a class="ct blk" blk_line="70">&lt;S2&gt;/Gain2</a>'</span></td></tr>
+<tr name="71" id="71">
+<td>71</td><td>  <a id="71c3" class="tk">real_T</a> <a id="71c10" class="tk">Gain1</a>[3];                     <span class="ct">// '<a class="ct blk" blk_line="71">&lt;S2&gt;/Gain1</a>'</span></td></tr>
+<tr name="72" id="72">
+<td>72</td><td>  <a id="72c3" class="tk">real_T</a> <a id="72c10" class="tk">Switch</a>[3];                    <span class="ct">// '<a class="ct blk" blk_line="72">&lt;Root&gt;/Switch</a>'</span></td></tr>
+<tr name="73" id="73">
+<td>73</td><td>  <a id="73c3" class="tk">rtB_TankRelease</a> <a id="73c19" class="tk">TankRelease_m</a>;       <span class="ct">// '<a class="ct blk" blk_line="73">&lt;S5&gt;/TankRelease</a>'</span></td></tr>
+<tr name="74" id="74">
+<td>74</td><td>  <a id="74c3" class="tk">rtB_FuelDump</a> <a id="74c16" class="tk">StageRelease</a>;           <span class="ct">// '<a class="ct blk" blk_line="74">&lt;S5&gt;/StageRelease</a>'</span></td></tr>
+<tr name="75" id="75">
+<td>75</td><td>  <a id="75c3" class="tk">rtB_FuelDump</a> <a id="75c16" class="tk">FuelDump_f</a>;             <span class="ct">// '<a class="ct blk" blk_line="75">&lt;S5&gt;/FuelDump</a>'</span></td></tr>
+<tr name="76" id="76">
+<td>76</td><td>  <a id="76c3" class="tk">rtB_launchAbortController</a> <a id="76c29" class="tk">sf_launchAbortController</a>;<span class="ct">// '<a class="ct blk" blk_line="76">&lt;Root&gt;/launchAbortController</a>' </span></td></tr>
+<tr name="77" id="77">
+<td>77</td><td><span class="br">}</span> <a id="77c3" class="tk">BlockIO</a>;</td></tr>
+<tr name="78" id="78">
+<td>78</td><td></td></tr>
+<tr name="79" id="79">
+<td>79</td><td><span class="ct">// Block states (auto storage) for system '<a class="ct blk" blk_line="79">&lt;Root&gt;</a>'</span></td></tr>
+<tr name="80" id="80">
+<td>80</td><td><span class="kw">typedef</span> <span class="kw">struct</span> <span class="br">{</span></td></tr>
+<tr name="81" id="81">
+<td>81</td><td>  <a id="81c3" class="tk">real_T</a> <a id="81c10" class="tk">ProtectedRT_Buffer0</a>;          <span class="ct">// '<a class="ct blk" blk_line="81">&lt;Root&gt;/Protected RT</a>'</span></td></tr>
+<tr name="82" id="82">
+<td>82</td><td>  <a id="82c3" class="tk">real_T</a> <a id="82c10" class="tk">ProtectedRT1_Buffer0</a>;         <span class="ct">// '<a class="ct blk" blk_line="82">&lt;Root&gt;/Protected RT1</a>'</span></td></tr>
+<tr name="83" id="83">
+<td>83</td><td>  <a id="83c3" class="tk">real_T</a> <a id="83c10" class="tk">VRTracer_LastPos</a>[3];          <span class="ct">// '<a class="ct blk" blk_line="83">&lt;Root&gt;/VR Tracer</a>'</span></td></tr>
+<tr name="84" id="84">
+<td>84</td><td>  <span class="kw">struct</span> <span class="br">{</span></td></tr>
+<tr name="85" id="85">
+<td>85</td><td>    <span class="kw">void</span> *<a id="85c11" class="tk">TimePtr</a>;</td></tr>
+<tr name="86" id="86">
+<td>86</td><td>    <span class="kw">void</span> *<a id="86c11" class="tk">DataPtr</a>;</td></tr>
+<tr name="87" id="87">
+<td>87</td><td>    <span class="kw">void</span> *<a id="87c11" class="tk">RSimInfoPtr</a>;</td></tr>
+<tr name="88" id="88">
+<td>88</td><td>  <span class="br">}</span> <a id="88c5" class="tk">FromWs_PWORK</a>;                      <span class="ct">// '<a class="ct blk" blk_line="88">&lt;S3&gt;/FromWs</a>'</span></td></tr>
+<tr name="89" id="89">
+<td>89</td><td></td></tr>
+<tr name="90" id="90">
+<td>90</td><td>  <span class="kw">void</span> *<a id="90c9" class="tk">VRSink_PWORK</a>[17];              <span class="ct">// '<a class="ct blk" blk_line="90">&lt;Root&gt;/VR Sink</a>'</span></td></tr>
+<tr name="91" id="91">
+<td>91</td><td>  <span class="kw">struct</span> <span class="br">{</span></td></tr>
+<tr name="92" id="92">
+<td>92</td><td>    <a id="92c5" class="tk">int_T</a> <a id="92c11" class="tk">PrevIndex</a>;</td></tr>
+<tr name="93" id="93">
+<td>93</td><td>  <span class="br">}</span> <a id="93c5" class="tk">FromWs_IWORK</a>;                      <span class="ct">// '<a class="ct blk" blk_line="93">&lt;S3&gt;/FromWs</a>'</span></td></tr>
+<tr name="94" id="94">
+<td>94</td><td></td></tr>
+<tr name="95" id="95">
+<td>95</td><td>  <a id="95c3" class="tk">int8_T</a> <a id="95c10" class="tk">ProtectedRT_semaphoreTaken</a>;   <span class="ct">// '<a class="ct blk" blk_line="95">&lt;Root&gt;/Protected RT</a>'</span></td></tr>
+<tr name="96" id="96">
+<td>96</td><td>  <a id="96c3" class="tk">int8_T</a> <a id="96c10" class="tk">ProtectedRT1_semaphoreTaken</a>;  <span class="ct">// '<a class="ct blk" blk_line="96">&lt;Root&gt;/Protected RT1</a>'</span></td></tr>
+<tr name="97" id="97">
+<td>97</td><td>  <a id="97c3" class="tk">boolean_T</a> <a id="97c13" class="tk">VRTracer_CreateLineSgmnt</a>;  <span class="ct">// '<a class="ct blk" blk_line="97">&lt;Root&gt;/VR Tracer</a>'</span></td></tr>
+<tr name="98" id="98">
+<td>98</td><td>  <a id="98c3" class="tk">rtDW_TankRelease</a> <a id="98c20" class="tk">TankRelease_m</a>;      <span class="ct">// '<a class="ct blk" blk_line="98">&lt;S5&gt;/TankRelease</a>'</span></td></tr>
+<tr name="99" id="99">
+<td>99</td><td>  <a id="99c3" class="tk">rtDW_FuelDump</a> <a id="99c17" class="tk">StageRelease</a>;          <span class="ct">// '<a class="ct blk" blk_line="99">&lt;S5&gt;/StageRelease</a>'</span></td></tr>
+<tr name="100" id="100">
+<td>100</td><td>  <a id="100c3" class="tk">rtDW_FuelDump</a> <a id="100c17" class="tk">FuelDump_f</a>;            <span class="ct">// '<a class="ct blk" blk_line="100">&lt;S5&gt;/FuelDump</a>'</span></td></tr>
+<tr name="101" id="101">
+<td>101</td><td>  <a id="101c3" class="tk">rtDW_launchAbortController</a> <a id="101c30" class="tk">sf_launchAbortController</a>;<span class="ct">// '<a class="ct blk" blk_line="101">&lt;Root&gt;/launchAbortController</a>' </span></td></tr>
+<tr name="102" id="102">
+<td>102</td><td><span class="br">}</span> <a id="102c3" class="tk">D_Work</a>;</td></tr>
+<tr name="103" id="103">
+<td>103</td><td></td></tr>
+<tr name="104" id="104">
+<td>104</td><td><span class="ct">// Parameters for system: '<a class="ct blk" blk_line="104">&lt;S5&gt;/FuelDump</a>'</span></td></tr>
+<tr name="105" id="105">
+<td>105</td><td><span class="kw">struct</span> <a id="105c8" class="tk">rtP_FuelDump_</a> <span class="br">{</span></td></tr>
+<tr name="106" id="106">
+<td>106</td><td>  <a id="106c3" class="tk">real_T</a> <a id="106c10" class="tk">Out2_Y0</a>;                      <span class="ct">// Expression: 0</span></td></tr>
+<tr name="107" id="107">
+<td>107</td><td>                                       <span class="ct">//  Referenced by: '<a class="ct blk" blk_line="107">&lt;S8&gt;/Out2</a>'</span></td></tr>
+<tr name="108" id="108">
+<td>108</td><td></td></tr>
+<tr name="109" id="109">
+<td>109</td><td>  <a id="109c3" class="tk">real_T</a> <a id="109c10" class="tk">Constant1_Value</a>;              <span class="ct">// Expression: -2</span></td></tr>
+<tr name="110" id="110">
+<td>110</td><td>                                       <span class="ct">//  Referenced by: '<a class="ct blk" blk_line="110">&lt;S8&gt;/Constant1</a>'</span></td></tr>
+<tr name="111" id="111">
+<td>111</td><td></td></tr>
+<tr name="112" id="112">
+<td>112</td><td>  <a id="112c3" class="tk">real_T</a> <a id="112c10" class="tk">UnitDelay_InitialCondition</a>;   <span class="ct">// Expression: 0</span></td></tr>
+<tr name="113" id="113">
+<td>113</td><td>                                       <span class="ct">//  Referenced by: '<a class="ct blk" blk_line="113">&lt;S8&gt;/Unit Delay</a>'</span></td></tr>
+<tr name="114" id="114">
+<td>114</td><td></td></tr>
+<tr name="115" id="115">
+<td>115</td><td><span class="br">}</span>;</td></tr>
+<tr name="116" id="116">
+<td>116</td><td></td></tr>
+<tr name="117" id="117">
+<td>117</td><td><span class="ct">// Parameters for system: '<a class="ct blk" blk_line="117">&lt;S5&gt;/TankRelease</a>'</span></td></tr>
+<tr name="118" id="118">
+<td>118</td><td><span class="kw">struct</span> <a id="118c8" class="tk">rtP_TankRelease_</a> <span class="br">{</span></td></tr>
+<tr name="119" id="119">
+<td>119</td><td>  <a id="119c3" class="tk">real_T</a> <a id="119c10" class="tk">Out1_Y0</a>;                      <span class="ct">// Expression: 0</span></td></tr>
+<tr name="120" id="120">
+<td>120</td><td>                                       <span class="ct">//  Referenced by: '<a class="ct blk" blk_line="120">&lt;S10&gt;/Out1</a>'</span></td></tr>
+<tr name="121" id="121">
+<td>121</td><td></td></tr>
+<tr name="122" id="122">
+<td>122</td><td>  <a id="122c3" class="tk">real_T</a> <a id="122c10" class="tk">Constant_Value</a>;               <span class="ct">// Expression: -2</span></td></tr>
+<tr name="123" id="123">
+<td>123</td><td>                                       <span class="ct">//  Referenced by: '<a class="ct blk" blk_line="123">&lt;S10&gt;/Constant</a>'</span></td></tr>
+<tr name="124" id="124">
+<td>124</td><td></td></tr>
+<tr name="125" id="125">
+<td>125</td><td>  <a id="125c3" class="tk">real_T</a> <a id="125c10" class="tk">UnitDelay_InitialCondition</a>;   <span class="ct">// Expression: 0</span></td></tr>
+<tr name="126" id="126">
+<td>126</td><td>                                       <span class="ct">//  Referenced by: '<a class="ct blk" blk_line="126">&lt;S10&gt;/Unit Delay</a>'</span></td></tr>
+<tr name="127" id="127">
+<td>127</td><td></td></tr>
+<tr name="128" id="128">
+<td>128</td><td><span class="br">}</span>;</td></tr>
+<tr name="129" id="129">
+<td>129</td><td></td></tr>
+<tr name="130" id="130">
+<td>130</td><td><span class="ct">// Parameters (auto storage)</span></td></tr>
+<tr name="131" id="131">
+<td>131</td><td><span class="kw">struct</span> <a id="131c8" class="tk">Parameters_</a> <span class="br">{</span></td></tr>
+<tr name="132" id="132">
+<td>132</td><td>  <a id="132c3" class="tk">real_T</a> <a id="132c10" class="tk">Blue_Value</a>[3];                <span class="ct">// Expression: [0 0 1]</span></td></tr>
+<tr name="133" id="133">
+<td>133</td><td>                                       <span class="ct">//  Referenced by: '<a class="ct blk" blk_line="133">&lt;Root&gt;/Blue</a>'</span></td></tr>
+<tr name="134" id="134">
+<td>134</td><td></td></tr>
+<tr name="135" id="135">
+<td>135</td><td>  <a id="135c3" class="tk">real_T</a> <a id="135c10" class="tk">Red_Value</a>[3];                 <span class="ct">// Expression: [1 0 0]</span></td></tr>
+<tr name="136" id="136">
+<td>136</td><td>                                       <span class="ct">//  Referenced by: '<a class="ct blk" blk_line="136">&lt;Root&gt;/Red</a>'</span></td></tr>
+<tr name="137" id="137">
+<td>137</td><td></td></tr>
+<tr name="138" id="138">
+<td>138</td><td>  <a id="138c3" class="tk">real_T</a> <a id="138c10" class="tk">MarkersOff_Value</a>;             <span class="ct">// Expression: 1</span></td></tr>
+<tr name="139" id="139">
+<td>139</td><td>                                       <span class="ct">//  Referenced by: '<a class="ct blk" blk_line="139">&lt;Root&gt;/Markers Off</a>'</span></td></tr>
+<tr name="140" id="140">
+<td>140</td><td></td></tr>
+<tr name="141" id="141">
+<td>141</td><td>  <a id="141c3" class="tk">real_T</a> <a id="141c10" class="tk">MarkersOn_Value</a>;              <span class="ct">// Expression: 0</span></td></tr>
+<tr name="142" id="142">
+<td>142</td><td>                                       <span class="ct">//  Referenced by: '<a class="ct blk" blk_line="142">&lt;Root&gt;/Markers On</a>'</span></td></tr>
+<tr name="143" id="143">
+<td>143</td><td></td></tr>
+<tr name="144" id="144">
+<td>144</td><td>  <a id="144c3" class="tk">real_T</a> <a id="144c10" class="tk">rotVector_Value</a>[3];           <span class="ct">// Expression: [0, 0, 1]</span></td></tr>
+<tr name="145" id="145">
+<td>145</td><td>                                       <span class="ct">//  Referenced by: '<a class="ct blk" blk_line="145">&lt;S7&gt;/rotVector</a>'</span></td></tr>
+<tr name="146" id="146">
+<td>146</td><td></td></tr>
+<tr name="147" id="147">
+<td>147</td><td>  <a id="147c3" class="tk">real_T</a> <a id="147c10" class="tk">rotVector_Value_b</a>[3];         <span class="ct">// Expression: [1, 0, 0]</span></td></tr>
+<tr name="148" id="148">
+<td>148</td><td>                                       <span class="ct">//  Referenced by: '<a class="ct blk" blk_line="148">&lt;S6&gt;/rotVector</a>'</span></td></tr>
+<tr name="149" id="149">
+<td>149</td><td></td></tr>
+<tr name="150" id="150">
+<td>150</td><td>  <a id="150c3" class="tk">real_T</a> <a id="150c10" class="tk">Gain_Gain</a>[3];                 <span class="ct">// Expression: [0,1,0]</span></td></tr>
+<tr name="151" id="151">
+<td>151</td><td>                                       <span class="ct">//  Referenced by: '<a class="ct blk" blk_line="151">&lt;S2&gt;/Gain</a>'</span></td></tr>
+<tr name="152" id="152">
+<td>152</td><td></td></tr>
+<tr name="153" id="153">
+<td>153</td><td>  <a id="153c3" class="tk">real_T</a> <a id="153c10" class="tk">Gain2_Gain</a>[3];                <span class="ct">// Expression: [0,1,0]</span></td></tr>
+<tr name="154" id="154">
+<td>154</td><td>                                       <span class="ct">//  Referenced by: '<a class="ct blk" blk_line="154">&lt;S2&gt;/Gain2</a>'</span></td></tr>
+<tr name="155" id="155">
+<td>155</td><td></td></tr>
+<tr name="156" id="156">
+<td>156</td><td>  <a id="156c3" class="tk">real_T</a> <a id="156c10" class="tk">Gain1_Gain</a>[3];                <span class="ct">// Expression: [0,1,0]</span></td></tr>
+<tr name="157" id="157">
+<td>157</td><td>                                       <span class="ct">//  Referenced by: '<a class="ct blk" blk_line="157">&lt;S2&gt;/Gain1</a>'</span></td></tr>
+<tr name="158" id="158">
+<td>158</td><td></td></tr>
+<tr name="159" id="159">
+<td>159</td><td>  <a id="159c3" class="tk">uint8_T</a> <a id="159c11" class="tk">ManualSwitch_CurrentSetting</a>; <span class="ct">// Computed Parameter: ManualSwitch_CurrentSetting</span></td></tr>
+<tr name="160" id="160">
+<td>160</td><td>                                       <span class="ct">//  Referenced by: '<a class="ct blk" blk_line="160">&lt;Root&gt;/Manual Switch</a>'</span></td></tr>
+<tr name="161" id="161">
+<td>161</td><td></td></tr>
+<tr name="162" id="162">
+<td>162</td><td>  <a id="162c3" class="tk">rtP_TankRelease</a> <a id="162c19" class="tk">TankRelease_m</a>;       <span class="ct">// '<a class="ct blk" blk_line="162">&lt;S5&gt;/TankRelease</a>'</span></td></tr>
+<tr name="163" id="163">
+<td>163</td><td>  <a id="163c3" class="tk">rtP_FuelDump</a> <a id="163c16" class="tk">StageRelease</a>;           <span class="ct">// '<a class="ct blk" blk_line="163">&lt;S5&gt;/StageRelease</a>'</span></td></tr>
+<tr name="164" id="164">
+<td>164</td><td>  <a id="164c3" class="tk">rtP_FuelDump</a> <a id="164c16" class="tk">FuelDump_f</a>;             <span class="ct">// '<a class="ct blk" blk_line="164">&lt;S5&gt;/FuelDump</a>'</span></td></tr>
+<tr name="165" id="165">
+<td>165</td><td><span class="br">}</span>;</td></tr>
+<tr name="166" id="166">
+<td>166</td><td></td></tr>
+<tr name="167" id="167">
+<td>167</td><td><span class="ct">// Real-time Model Data Structure</span></td></tr>
+<tr name="168" id="168">
+<td>168</td><td><span class="kw">struct</span> <a id="168c8" class="tk">tag_RTM</a> <span class="br">{</span></td></tr>
+<tr name="169" id="169">
+<td>169</td><td>  <span class="kw">const</span> <a id="169c9" class="tk">char_T</a> * <span class="kw">volatile</span> <a id="169c27" class="tk">errorStatus</a>;</td></tr>
+<tr name="170" id="170">
+<td>170</td><td>  <a id="170c3" class="tk">RTWSolverInfo</a> <a id="170c17" class="tk">solverInfo</a>;</td></tr>
+<tr name="171" id="171">
+<td>171</td><td></td></tr>
+<tr name="172" id="172">
+<td>172</td><td>  <span class="ct">//</span></td></tr>
+<tr name="173" id="173">
+<td>173</td><td>  <span class="ct">//  Timing:</span></td></tr>
+<tr name="174" id="174">
+<td>174</td><td>  <span class="ct">//  The following substructure contains information regarding</span></td></tr>
+<tr name="175" id="175">
+<td>175</td><td>  <span class="ct">//  the timing information for the model.</span></td></tr>
+<tr name="176" id="176">
+<td>176</td><td></td></tr>
+<tr name="177" id="177">
+<td>177</td><td>  <span class="kw">struct</span> <span class="br">{</span></td></tr>
+<tr name="178" id="178">
+<td>178</td><td>    <a id="178c5" class="tk">uint32_T</a> <a id="178c14" class="tk">clockTick0</a>;</td></tr>
+<tr name="179" id="179">
+<td>179</td><td>    <a id="179c5" class="tk">time_T</a> <a id="179c12" class="tk">stepSize0</a>;</td></tr>
+<tr name="180" id="180">
+<td>180</td><td>    <a id="180c5" class="tk">uint32_T</a> <a id="180c14" class="tk">clockTick1</a>;</td></tr>
+<tr name="181" id="181">
+<td>181</td><td>    <span class="kw">struct</span> <span class="br">{</span></td></tr>
+<tr name="182" id="182">
+<td>182</td><td>      <a id="182c7" class="tk">uint8_T</a> <a id="182c15" class="tk">TID</a>[3];</td></tr>
+<tr name="183" id="183">
+<td>183</td><td>    <span class="br">}</span> <a id="183c7" class="tk">TaskCounters</a>;</td></tr>
+<tr name="184" id="184">
+<td>184</td><td></td></tr>
+<tr name="185" id="185">
+<td>185</td><td>    <a id="185c5" class="tk">SimTimeStep</a> <a id="185c17" class="tk">simTimeStep</a>;</td></tr>
+<tr name="186" id="186">
+<td>186</td><td>    <a id="186c5" class="tk">time_T</a> *<a id="186c13" class="tk">t</a>;</td></tr>
+<tr name="187" id="187">
+<td>187</td><td>    <a id="187c5" class="tk">time_T</a> <a id="187c12" class="tk">tArray</a>[3];</td></tr>
+<tr name="188" id="188">
+<td>188</td><td>  <span class="br">}</span> <a id="188c5" class="tk">Timing</a>;</td></tr>
+<tr name="189" id="189">
+<td>189</td><td><span class="br">}</span>;</td></tr>
+<tr name="190" id="190">
+<td>190</td><td></td></tr>
+<tr name="191" id="191">
+<td>191</td><td><span class="pp">#ifdef</span> <a id="191c8" class="tk">__cplusplus</a></td></tr>
+<tr name="192" id="192">
+<td>192</td><td></td></tr>
+<tr name="193" id="193">
+<td>193</td><td><span class="kw">extern</span> "C" <span class="br">{</span></td></tr>
+<tr name="194" id="194">
+<td>194</td><td></td></tr>
+<tr name="195" id="195">
+<td>195</td><td><span class="pp">#endif</span></td></tr>
+<tr name="196" id="196">
+<td>196</td><td></td></tr>
+<tr name="197" id="197">
+<td>197</td><td><span class="pp">#ifdef</span> <a id="197c8" class="tk">__cplusplus</a></td></tr>
+<tr name="198" id="198">
+<td>198</td><td></td></tr>
+<tr name="199" id="199">
+<td>199</td><td><span class="br">}</span></td></tr>
+<tr name="200" id="200">
+<td>200</td><td><span class="pp">#endif</span></td></tr>
+<tr name="201" id="201">
+<td>201</td><td></td></tr>
+<tr name="202" id="202">
+<td>202</td><td><span class="ct">// Class declaration for model sf_launchabort</span></td></tr>
+<tr name="203" id="203">
+<td>203</td><td><span class="kw">class</span> <a id="203c7" class="tk">sf_launchabortModelClass</a> <span class="br">{</span></td></tr>
+<tr name="204" id="204">
+<td>204</td><td>  <span class="ct">// public data and function members</span></td></tr>
+<tr name="205" id="205">
+<td>205</td><td> <span class="kw">public</span>:</td></tr>
+<tr name="206" id="206">
+<td>206</td><td>  <span class="ct">// Model entry point functions</span></td></tr>
+<tr name="207" id="207">
+<td>207</td><td></td></tr>
+<tr name="208" id="208">
+<td>208</td><td>  <span class="ct">// model initialize function</span></td></tr>
+<tr name="209" id="209">
+<td>209</td><td>  <span class="kw">void</span> <a id="209c8" class="tk">initialize</a>();</td></tr>
+<tr name="210" id="210">
+<td>210</td><td></td></tr>
+<tr name="211" id="211">
+<td>211</td><td>  <span class="ct">// model step function</span></td></tr>
+<tr name="212" id="212">
+<td>212</td><td>  <span class="kw">void</span> <a id="212c8" class="tk">step</a>();</td></tr>
+<tr name="213" id="213">
+<td>213</td><td></td></tr>
+<tr name="214" id="214">
+<td>214</td><td>  <span class="ct">// model terminate function</span></td></tr>
+<tr name="215" id="215">
+<td>215</td><td>  <span class="kw">void</span> <a id="215c8" class="tk">terminate</a>();</td></tr>
+<tr name="216" id="216">
+<td>216</td><td></td></tr>
+<tr name="217" id="217">
+<td>217</td><td>  <span class="ct">// Constructor</span></td></tr>
+<tr name="218" id="218">
+<td>218</td><td>  <a id="218c3" class="tk">sf_launchabortModelClass</a>();</td></tr>
+<tr name="219" id="219">
+<td>219</td><td></td></tr>
+<tr name="220" id="220">
+<td>220</td><td>  <span class="ct">// Destructor</span></td></tr>
+<tr name="221" id="221">
+<td>221</td><td>  ~<a id="221c4" class="tk">sf_launchabortModelClass</a>();</td></tr>
+<tr name="222" id="222">
+<td>222</td><td></td></tr>
+<tr name="223" id="223">
+<td>223</td><td>  <span class="ct">// Real-Time Model get method</span></td></tr>
+<tr name="224" id="224">
+<td>224</td><td>  <a id="224c3" class="tk">RT_MODEL</a> * <a id="224c14" class="tk">getRTM</a>();</td></tr>
+<tr name="225" id="225">
+<td>225</td><td></td></tr>
+<tr name="226" id="226">
+<td>226</td><td>  <span class="ct">// private data and function members</span></td></tr>
+<tr name="227" id="227">
+<td>227</td><td> <span class="kw">private</span>:</td></tr>
+<tr name="228" id="228">
+<td>228</td><td>  <span class="ct">// Tunable parameters</span></td></tr>
+<tr name="229" id="229">
+<td>229</td><td>  <a id="229c3" class="tk">Parameters</a> <a id="229c14" class="tk">P</a>;</td></tr>
+<tr name="230" id="230">
+<td>230</td><td></td></tr>
+<tr name="231" id="231">
+<td>231</td><td>  <span class="ct">// Block signals</span></td></tr>
+<tr name="232" id="232">
+<td>232</td><td>  <a id="232c3" class="tk">BlockIO</a> <a id="232c11" class="tk">B</a>;</td></tr>
+<tr name="233" id="233">
+<td>233</td><td></td></tr>
+<tr name="234" id="234">
+<td>234</td><td>  <span class="ct">// Block states</span></td></tr>
+<tr name="235" id="235">
+<td>235</td><td>  <a id="235c3" class="tk">D_Work</a> <a id="235c10" class="tk">DWork</a>;</td></tr>
+<tr name="236" id="236">
+<td>236</td><td></td></tr>
+<tr name="237" id="237">
+<td>237</td><td>  <span class="ct">// Real-Time Model</span></td></tr>
+<tr name="238" id="238">
+<td>238</td><td>  <a id="238c3" class="tk">RT_MODEL</a> <a id="238c12" class="tk">M</a>;</td></tr>
+<tr name="239" id="239">
+<td>239</td><td><span class="br">}</span>;</td></tr>
+<tr name="240" id="240">
+<td>240</td><td></td></tr>
+<tr name="241" id="241">
+<td>241</td><td><span class="ct">//-</span></td></tr>
+<tr name="242" id="242">
+<td>242</td><td><span class="ct">//  The generated code includes comments that allow you to trace directly</span></td></tr>
+<tr name="243" id="243">
+<td>243</td><td><span class="ct">//  back to the appropriate location in the model.  The basic format</span></td></tr>
+<tr name="244" id="244">
+<td>244</td><td><span class="ct">//  is &lt;system&gt;/block_name, where system is the system number (uniquely</span></td></tr>
+<tr name="245" id="245">
+<td>245</td><td><span class="ct">//  assigned by Simulink) and block_name is the name of the block.</span></td></tr>
+<tr name="246" id="246">
+<td>246</td><td><span class="ct">//</span></td></tr>
+<tr name="247" id="247">
+<td>247</td><td><span class="ct">//  Use the MATLAB hilite_system command to trace the generated code back</span></td></tr>
+<tr name="248" id="248">
+<td>248</td><td><span class="ct">//  to the model.  For example,</span></td></tr>
+<tr name="249" id="249">
+<td>249</td><td><span class="ct">//</span></td></tr>
+<tr name="250" id="250">
+<td>250</td><td><span class="ct">//  hilite_system('<a class="ct blk" blk_line="250">&lt;S3&gt;</a>')    - opens system 3</span></td></tr>
+<tr name="251" id="251">
+<td>251</td><td><span class="ct">//  hilite_system('<a class="ct blk" blk_line="251">&lt;S3&gt;/Kp</a>') - opens and selects block Kp which resides in S3</span></td></tr>
+<tr name="252" id="252">
+<td>252</td><td><span class="ct">//</span></td></tr>
+<tr name="253" id="253">
+<td>253</td><td><span class="ct">//  Here is the system hierarchy for this model</span></td></tr>
+<tr name="254" id="254">
+<td>254</td><td><span class="ct">//</span></td></tr>
+<tr name="255" id="255">
+<td>255</td><td><span class="ct">//  '<a class="ct blk" blk_line="255">&lt;Root&gt;</a>' : 'sf_launchabort'</span></td></tr>
+<tr name="256" id="256">
+<td>256</td><td><span class="ct">//  '<a class="ct blk" blk_line="256">&lt;S1&gt;</a>'   : 'sf_launchabort/VR Data'</span></td></tr>
+<tr name="257" id="257">
+<td>257</td><td><span class="ct">//  '<a class="ct blk" blk_line="257">&lt;S2&gt;</a>'   : 'sf_launchabort/VR Inputs'</span></td></tr>
+<tr name="258" id="258">
+<td>258</td><td><span class="ct">//  '<a class="ct blk" blk_line="258">&lt;S3&gt;</a>'   : 'sf_launchabort/inputs1'</span></td></tr>
+<tr name="259" id="259">
+<td>259</td><td><span class="ct">//  '<a class="ct blk" blk_line="259">&lt;S4&gt;</a>'   : 'sf_launchabort/launchAbortController'</span></td></tr>
+<tr name="260" id="260">
+<td>260</td><td><span class="ct">//  '<a class="ct blk" blk_line="260">&lt;S5&gt;</a>'   : 'sf_launchabort/outputs'</span></td></tr>
+<tr name="261" id="261">
+<td>261</td><td><span class="ct">//  '<a class="ct blk" blk_line="261">&lt;S6&gt;</a>'   : 'sf_launchabort/VR Inputs/Pitch'</span></td></tr>
+<tr name="262" id="262">
+<td>262</td><td><span class="ct">//  '<a class="ct blk" blk_line="262">&lt;S7&gt;</a>'   : 'sf_launchabort/VR Inputs/Yaw'</span></td></tr>
+<tr name="263" id="263">
+<td>263</td><td><span class="ct">//  '<a class="ct blk" blk_line="263">&lt;S8&gt;</a>'   : 'sf_launchabort/outputs/FuelDump'</span></td></tr>
+<tr name="264" id="264">
+<td>264</td><td><span class="ct">//  '<a class="ct blk" blk_line="264">&lt;S9&gt;</a>'   : 'sf_launchabort/outputs/StageRelease'</span></td></tr>
+<tr name="265" id="265">
+<td>265</td><td><span class="ct">//  '<a class="ct blk" blk_line="265">&lt;S10&gt;</a>'  : 'sf_launchabort/outputs/TankRelease'</span></td></tr>
+<tr name="266" id="266">
+<td>266</td><td></td></tr>
+<tr name="267" id="267">
+<td>267</td><td><span class="pp">#endif</span>                                 <span class="ct">// RTW_HEADER_sf_launchabort_h_</span></td></tr>
+<tr name="268" id="268">
+<td>268</td><td></td></tr>
+<tr name="269" id="269">
+<td>269</td><td><span class="ct">//</span></td></tr>
+<tr name="270" id="270">
+<td>270</td><td><span class="ct">// File trailer for generated code.</span></td></tr>
+<tr name="271" id="271">
+<td>271</td><td><span class="ct">//</span></td></tr>
+<tr name="272" id="272">
+<td>272</td><td><span class="ct">// [EOF]</span></td></tr>
+<tr name="273" id="273">
+<td>273</td><td><span class="ct">//</span></td></tr>
+<tr name="274" id="274">
+<td>274</td><td></td></tr>
+</table>
+</pre>
+</body>
+</html>

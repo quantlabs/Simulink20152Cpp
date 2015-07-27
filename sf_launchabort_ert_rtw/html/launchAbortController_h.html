@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="./js/coder_app.js"></script>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="./rtwreport_utils.js"></script>
+<script type="text/javascript" src="./rtwannotate.js"></script>
+<link rel="stylesheet" type="text/css" href="./css/coder_app.css"/>
+</head>
+<body onload="srcFileOnload();">
+<pre id="code">
+<table class="code" id="codeTbl">
+<tr name="1" id="1">
+<td>1</td><td><span class="ct">//</span></td></tr>
+<tr name="2" id="2">
+<td>2</td><td><span class="ct">// File: launchAbortController.h</span></td></tr>
+<tr name="3" id="3">
+<td>3</td><td><span class="ct">//</span></td></tr>
+<tr name="4" id="4">
+<td>4</td><td><span class="ct">// Code generated for Simulink model 'sf_launchabort'.</span></td></tr>
+<tr name="5" id="5">
+<td>5</td><td><span class="ct">//</span></td></tr>
+<tr name="6" id="6">
+<td>6</td><td><span class="ct">// Model version                  : 1.211</span></td></tr>
+<tr name="7" id="7">
+<td>7</td><td><span class="ct">// Simulink Coder version         : 8.8 (R2015a) 09-Feb-2015</span></td></tr>
+<tr name="8" id="8">
+<td>8</td><td><span class="ct">// C/C++ source code generated on : Sun Jul 26 22:33:13 2015</span></td></tr>
+<tr name="9" id="9">
+<td>9</td><td><span class="ct">//</span></td></tr>
+<tr name="10" id="10">
+<td>10</td><td><span class="ct">// Target selection: ert.tlc</span></td></tr>
+<tr name="11" id="11">
+<td>11</td><td><span class="ct">// Embedded hardware selection: 32-bit Generic</span></td></tr>
+<tr name="12" id="12">
+<td>12</td><td><span class="ct">// Code generation objectives: Unspecified</span></td></tr>
+<tr name="13" id="13">
+<td>13</td><td><span class="ct">// Validation result: Not run</span></td></tr>
+<tr name="14" id="14">
+<td>14</td><td><span class="ct">//</span></td></tr>
+<tr name="15" id="15">
+<td>15</td><td><span class="pp">#ifndef</span> <a id="15c9" class="tk">RTW_HEADER_launchAbortController_h_</a></td></tr>
+<tr name="16" id="16">
+<td>16</td><td><span class="pp">#define</span> <a id="16c9" class="tk">RTW_HEADER_launchAbortController_h_</a></td></tr>
+<tr name="17" id="17">
+<td>17</td><td><span class="pp">#ifndef</span> <a id="17c9" class="tk">sf_launchabort_COMMON_INCLUDES_</a></td></tr>
+<tr name="18" id="18">
+<td>18</td><td><span class="pp"># define</span> <a id="18c10" class="tk">sf_launchabort_COMMON_INCLUDES_</a></td></tr>
+<tr name="19" id="19">
+<td>19</td><td><span class="pp">#include "rtwtypes.h"</span></td></tr>
+<tr name="20" id="20">
+<td>20</td><td><span class="pp">#include "rtw_continuous.h"</span></td></tr>
+<tr name="21" id="21">
+<td>21</td><td><span class="pp">#include "rtw_solver.h"</span></td></tr>
+<tr name="22" id="22">
+<td>22</td><td><span class="pp">#endif</span>                                 <span class="ct">// sf_launchabort_COMMON_INCLUDES_</span></td></tr>
+<tr name="23" id="23">
+<td>23</td><td></td></tr>
+<tr name="24" id="24">
+<td>24</td><td><span class="pp">#include "sf_launchabort_types.h"</span></td></tr>
+<tr name="25" id="25">
+<td>25</td><td></td></tr>
+<tr name="26" id="26">
+<td>26</td><td><span class="ct">// Block signals for system '<a class="ct blk" blk_line="26">&lt;Root&gt;/launchAbortController</a>'</span></td></tr>
+<tr name="27" id="27">
+<td>27</td><td><span class="kw">typedef</span> <span class="kw">struct</span> <span class="br">{</span></td></tr>
+<tr name="28" id="28">
+<td>28</td><td>  <a id="28c3" class="tk">boolean_T</a> <a id="28c13" class="tk">dumpFuel</a>;                  <span class="ct">// '<a class="ct blk" blk_line="28">&lt;Root&gt;/launchAbortController</a>'</span></td></tr>
+<tr name="29" id="29">
+<td>29</td><td>  <a id="29c3" class="tk">boolean_T</a> <a id="29c13" class="tk">releaseStage</a>;              <span class="ct">// '<a class="ct blk" blk_line="29">&lt;Root&gt;/launchAbortController</a>'</span></td></tr>
+<tr name="30" id="30">
+<td>30</td><td>  <a id="30c3" class="tk">boolean_T</a> <a id="30c13" class="tk">releaseTanks</a>;              <span class="ct">// '<a class="ct blk" blk_line="30">&lt;Root&gt;/launchAbortController</a>'</span></td></tr>
+<tr name="31" id="31">
+<td>31</td><td><span class="br">}</span> <a id="31c3" class="tk">rtB_launchAbortController</a>;</td></tr>
+<tr name="32" id="32">
+<td>32</td><td></td></tr>
+<tr name="33" id="33">
+<td>33</td><td><span class="ct">// Block states (auto storage) for system '<a class="ct blk" blk_line="33">&lt;Root&gt;/launchAbortController</a>'</span></td></tr>
+<tr name="34" id="34">
+<td>34</td><td><span class="kw">typedef</span> <span class="kw">struct</span> <span class="br">{</span></td></tr>
+<tr name="35" id="35">
+<td>35</td><td>  <a id="35c3" class="tk">uint32_T</a> <a id="35c12" class="tk">dumpFuelEventCounter</a>;       <span class="ct">// '<a class="ct blk" blk_line="35">&lt;Root&gt;/launchAbortController</a>'</span></td></tr>
+<tr name="36" id="36">
+<td>36</td><td>  <a id="36c3" class="tk">uint32_T</a> <a id="36c12" class="tk">releaseStageEventCounter</a>;   <span class="ct">// '<a class="ct blk" blk_line="36">&lt;Root&gt;/launchAbortController</a>'</span></td></tr>
+<tr name="37" id="37">
+<td>37</td><td>  <a id="37c3" class="tk">uint32_T</a> <a id="37c12" class="tk">releaseTanksEventCounter</a>;   <span class="ct">// '<a class="ct blk" blk_line="37">&lt;Root&gt;/launchAbortController</a>'</span></td></tr>
+<tr name="38" id="38">
+<td>38</td><td>  <a id="38c3" class="tk">uint8_T</a> <a id="38c11" class="tk">is_active_c1_sf_launchabort</a>; <span class="ct">// '<a class="ct blk" blk_line="38">&lt;Root&gt;/launchAbortController</a>'</span></td></tr>
+<tr name="39" id="39">
+<td>39</td><td>  <a id="39c3" class="tk">uint8_T</a> <a id="39c11" class="tk">is_ModeLogic</a>;                <span class="ct">// '<a class="ct blk" blk_line="39">&lt;Root&gt;/launchAbortController</a>'</span></td></tr>
+<tr name="40" id="40">
+<td>40</td><td>  <a id="40c3" class="tk">uint8_T</a> <a id="40c11" class="tk">is_Abort</a>;                    <span class="ct">// '<a class="ct blk" blk_line="40">&lt;Root&gt;/launchAbortController</a>'</span></td></tr>
+<tr name="41" id="41">
+<td>41</td><td>  <a id="41c3" class="tk">uint8_T</a> <a id="41c11" class="tk">is_abortLogic</a>;               <span class="ct">// '<a class="ct blk" blk_line="41">&lt;Root&gt;/launchAbortController</a>'</span></td></tr>
+<tr name="42" id="42">
+<td>42</td><td>  <a id="42c3" class="tk">uint8_T</a> <a id="42c11" class="tk">temporalCounter_i1</a>;          <span class="ct">// '<a class="ct blk" blk_line="42">&lt;Root&gt;/launchAbortController</a>'</span></td></tr>
+<tr name="43" id="43">
+<td>43</td><td><span class="br">}</span> <a id="43c3" class="tk">rtDW_launchAbortController</a>;</td></tr>
+<tr name="44" id="44">
+<td>44</td><td></td></tr>
+<tr name="45" id="45">
+<td>45</td><td><span class="kw">extern</span> <span class="kw">void</span> <a id="45c13" class="tk">launchAbortController_Init</a>(<a id="45c40" class="tk">rtB_launchAbortController</a> *<a id="45c67" class="tk">localB</a>,</td></tr>
+<tr name="46" id="46">
+<td>46</td><td>  <a id="46c3" class="tk">rtDW_launchAbortController</a> *<a id="46c31" class="tk">localDW</a>);</td></tr>
+<tr name="47" id="47">
+<td>47</td><td><span class="kw">extern</span> <span class="kw">void</span> <a id="47c13" class="tk">launchAbortController</a>(<a id="47c35" class="tk">real_T</a> <a id="47c42" class="tk">rtu_alt</a>, <a id="47c51" class="tk">real_T</a> <a id="47c58" class="tk">rtu_anomaly</a>,</td></tr>
+<tr name="48" id="48">
+<td>48</td><td>  <a id="48c3" class="tk">rtB_launchAbortController</a> *<a id="48c30" class="tk">localB</a>, <a id="48c38" class="tk">rtDW_launchAbortController</a> *<a id="48c66" class="tk">localDW</a>);</td></tr>
+<tr name="49" id="49">
+<td>49</td><td></td></tr>
+<tr name="50" id="50">
+<td>50</td><td><span class="pp">#endif</span>                                 <span class="ct">// RTW_HEADER_launchAbortController_h_</span></td></tr>
+<tr name="51" id="51">
+<td>51</td><td></td></tr>
+<tr name="52" id="52">
+<td>52</td><td><span class="ct">//</span></td></tr>
+<tr name="53" id="53">
+<td>53</td><td><span class="ct">// File trailer for generated code.</span></td></tr>
+<tr name="54" id="54">
+<td>54</td><td><span class="ct">//</span></td></tr>
+<tr name="55" id="55">
+<td>55</td><td><span class="ct">// [EOF]</span></td></tr>
+<tr name="56" id="56">
+<td>56</td><td><span class="ct">//</span></td></tr>
+<tr name="57" id="57">
+<td>57</td><td></td></tr>
+</table>
+</pre>
+</body>
+</html>

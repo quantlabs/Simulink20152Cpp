@@ -1,0 +1,78 @@
+%implements "chartSource" "C"
+%function ChartConfig(block, system) void
+  %createrecord chartConfiguration { ...
+          executeAtInitialization  0 ...
+  }
+  %return chartConfiguration
+%endfunction
+%function ChartDataMap(block, system) void
+  %createrecord ChartDataElements {\
+    NumChartData   10 \
+    ChartDataDefaults {\
+      RecordType   "ChartData"\
+      Dimensions   []\
+      IsTestPoint  0\
+    }\
+    ChartData {\
+      Name         "dumpFuelEventCounter"\
+      Description  "OutputEventCounter"\
+      SFName       ""\
+      Path         "dumpFuel"\
+    }\
+    ChartData {\
+      Name         "releaseStageEventCounter"\
+      Description  "OutputEventCounter"\
+      SFName       ""\
+      Path         "releaseStage"\
+    }\
+    ChartData {\
+      Name         "releaseTanksEventCounter"\
+      Description  "OutputEventCounter"\
+      SFName       ""\
+      Path         "releaseTanks"\
+    }\
+    ChartData {\
+      Name         "is_active_c1_sf_launchabort"\
+      Description  "StateIsActive"\
+      SFName       ""\
+      Path         ""\
+    }\
+    ChartData {\
+      Name         "is_ModeLogic"\
+      Description  "StateActiveChild"\
+      SFName       ""\
+      Path         "ModeLogic"\
+    }\
+    ChartData {\
+      Name         "is_active_ModeLogic"\
+      Description  "StateIsActive"\
+      SFName       ""\
+      Path         "ModeLogic"\
+    }\
+    ChartData {\
+      Name         "is_Abort"\
+      Description  "StateActiveChild"\
+      SFName       ""\
+      Path         "Abort"\
+    }\
+    ChartData {\
+      Name         "is_active_Abort"\
+      Description  "StateIsActive"\
+      SFName       ""\
+      Path         "Abort"\
+    }\
+    ChartData {\
+      Name         "is_abortLogic"\
+      Description  "StateActiveChild"\
+      SFName       ""\
+      Path         "Abort.abortLogic"\
+    }\
+    ChartData {\
+      Name         "temporalCounter_i1"\
+      Description  "TemporalCounter"\
+      SFName       ""\
+      Path         ""\
+    }\
+  }
+  %return ChartDataElements
+%endfunction
